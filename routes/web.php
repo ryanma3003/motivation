@@ -17,22 +17,25 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/', function() use ($app) {
+$router->get('/', function() use ($router) {
     $count = Quote::query()->get()->count();
     $day = (int) date('z');
     $page = $day % $count + 1;
 
-    $quotes = Quote::query()->get()-forPage($page, 1)->all();
+    $quotes = Quote::query()->get()->forPage($page, 1)->all();
+
+    // echo $page;
 
     if(empty($quotes)) {
-        throw new
-        \Illuminate\Database\Eloquent\ModelNotFoundExection();
+        throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
     }
 
     return view('quote', ['quote' => $quotes[0]]);
 });
 
-$router->get('/{id}', function($id) use ($app) {
+$router->post('/input', 'QuoteController@store');
+
+$router->get('/{id}', function($id) use ($router) {
     $quote = Quote::query()->findOrFail($id);
     return view('quote', ['quote' => $quote]);
 });

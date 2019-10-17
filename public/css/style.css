@@ -27,7 +27,7 @@ body {
     text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.8);
 }
 
-.quote-container text {
+.quote-container p.text {
     font-family: 'Alegreya', serif;
     font-size: 4em;
 }
