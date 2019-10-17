@@ -13,9 +13,9 @@ use App\Quote;
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+// $router->get('/', function () use ($router) {
+//     return $router->app->version();
+// });
 
 $router->get('/', function() use ($router) {
     $count = Quote::query()->get()->count();
@@ -24,13 +24,13 @@ $router->get('/', function() use ($router) {
 
     $quotes = Quote::query()->get()->forPage($page, 1)->all();
 
-    // echo $page;
+    // var_dump($quotes[2]);
 
     if(empty($quotes)) {
         throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
     }
 
-    return view('quote', ['quote' => $quotes[0]]);
+    return view('quote', ['quote' => $quotes[1]]);
 });
 
 $router->post('/input', 'QuoteController@store');
